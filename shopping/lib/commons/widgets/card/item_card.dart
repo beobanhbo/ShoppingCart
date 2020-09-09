@@ -11,11 +11,7 @@ class CardItem extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Card(
-      child: Column(
-        children: <Widget>[
-          ImageText(title: title, assetPath: assetPath, callback: null),
-        ],
-      ),
+      child: ImageText(title: title, assetPath: assetPath, callback: null),
     );
   }
 }

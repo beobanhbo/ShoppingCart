@@ -4,17 +4,15 @@ import 'package:shopping/commons/widgets/button/image_text.dart';
 class CategoryRow extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
-    return Expanded(
-      child: Container(
-        color: Colors.grey,
-        child: _buildRowItem(),
-      ),
+    return Container(
+      color: Colors.grey,
+      child: _buildRowItem(),
     );
   }
 
   Widget _buildRowItem() {
     return Row(
-      mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+      mainAxisAlignment: MainAxisAlignment.spaceBetween,
       children: <Widget>[
         ImageText(
             title: 'All',

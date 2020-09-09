@@ -14,6 +14,8 @@ class ImageText extends StatelessWidget {
     return GestureDetector(
       onTap: callback,
       child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        mainAxisAlignment: MainAxisAlignment.start,
         children: <Widget>[
           Container(
             child: Image.asset(assetPath),

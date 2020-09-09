@@ -37,9 +37,10 @@ class _ImageSliderState extends State<ImageSlider> {
             carouselSlider = CarouselSlider(
               height: MediaQuery.of(context).size.height * 0.25,
               initialPage: 0,
-              enlargeCenterPage: true,
+              enlargeCenterPage: false,
               autoPlay: true,
               reverse: true,
+              viewportFraction: 1.0,
               enableInfiniteScroll: true,
               autoPlayInterval: Duration(seconds: 2),
               autoPlayAnimationDuration: Duration(milliseconds: 2000),
@@ -55,7 +56,7 @@ class _ImageSliderState extends State<ImageSlider> {
                   builder: (BuildContext context) {
                     return Container(
                       width: MediaQuery.of(context).size.width,
-                      margin: EdgeInsets.symmetric(horizontal: 10.0),
+//                      margin: EdgeInsets.symmetric(horizontal: 10.0),
                       decoration: BoxDecoration(
                         color: Colors.green,
                       ),
@@ -68,9 +69,9 @@ class _ImageSliderState extends State<ImageSlider> {
                 );
               }).toList(),
             ),
-            SizedBox(
-              height: 10,
-            ),
+//            SizedBox(
+//              height: 10,
+//            ),
 //            Row(
 //              mainAxisAlignment: MainAxisAlignment.center,
 //              children: map<Widget>(imgList, (index, url) {
