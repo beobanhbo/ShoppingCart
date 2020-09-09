@@ -10,8 +10,9 @@ abstract class ProductRepos {
 class ProductRepositoryImpl extends ProductRepos {
   @override
   Future<List<Product>> fetchProduct() async {
-    print("dwddddddddddddd");
+    print("Bat dau");
     var response = await http.get('https://fakestoreapi.com/products?limit=5');
+    print(response.statusCode);
     if (response.statusCode == 200) {
       List responseList = jsonDecode(response.body.toString());
       List<Product> list = createProductList(responseList);

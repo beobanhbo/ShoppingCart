@@ -5,6 +5,7 @@ import 'package:shopping/commons/utils/app_images.dart';
 import 'package:shopping/commons/widgets/carousel/carousel.dart';
 import 'package:shopping/commons/widgets/category/category_row.dart';
 import 'package:shopping/model/product/product.dart';
+import 'package:shopping/model/product/product_repos.dart';
 import 'package:shopping/screen/home/bloc/home_bloc.dart';
 import 'package:shopping/screen/home/bloc/home_event.dart';
 import 'package:shopping/screen/home/bloc/home_state.dart';
@@ -16,16 +17,26 @@ class HomeScreen extends StatefulWidget {
 }
 
 class _HomeScreenState extends State<HomeScreen> {
+  HomeBloc homeBloc;
+  @override
+  void initState() {
+    // TODO: implement initState
+    super.initState();
+    homeBloc=BlocProvider.of<HomeBloc>(context);
+    homeBloc.add(HomeRequest());
+  }
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       body: BlocProvider(
-        create: (context) => HomeBloc()..add(HomeRequest()),
+
+        create: (context) => HomeBloc(productRepos: ProductRepositoryImpl()),
         child: Column(
           mainAxisAlignment: MainAxisAlignment.start,
           children: <Widget>[
             ImageSlider(),
             CategoryRow(),
+
             _buildCategory(),
             _buildCategory(),
           ],
@@ -40,6 +51,7 @@ class _HomeScreenState extends State<HomeScreen> {
       child: BlocBuilder<HomeBloc, HomeState>(
         builder: (context, state) {
           if (state is HomeSuccess) {
+
             var currentState = state;
             return ListView.builder(
                 scrollDirection: Axis.horizontal,
@@ -60,7 +72,9 @@ class _HomeScreenState extends State<HomeScreen> {
           } else if (state is HomeFailure) {
             return Center(child: Text('${state.error}'));
           }
-          return Center(child: Text('wdwdw'));
+          if(state is HomeLoading)
+          {return Center(child: Text('Center'));}
+          return Center(child: Text('Center'));
         },
       ),
     );
