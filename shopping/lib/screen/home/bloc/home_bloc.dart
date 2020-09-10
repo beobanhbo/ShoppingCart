@@ -11,45 +11,32 @@ class HomeBloc extends Bloc<HomeEvent, HomeState> {
   // Call repository
   ProductRepos productRepos;
 
-  HomeBloc({this.productRepos});
-
   @override
   HomeState get initialState => HomeInit();
 
   @override
   Stream<HomeState> mapEventToState(HomeEvent event) async* {
-    // bind repository
-    if (event is HomeRequest) {
-      developer.log("dqdqwwdqwd");
-      var loading = await productRepos.fetchProduct();
+    //try catch
+    final currentState = state;
 
-      yield HomeSuccess(listProduct: loading);
-      developer.log("dqdqwscaascascwdqwd");
-
-      yield HomeLoading();
-      // var loading = await productRepos.fetchProduct();
-      // developer.log("HomeSuccess");
-      // yield HomeSuccess(listProduct: loading);
-      //try catch
-      try {
-        if (event is HomeRequest) {
-          var loading = await productRepos.fetchProduct();
-          developer.log("HomeSuccess");
-          yield HomeSuccess(listProduct: loading);
-          // yield HomeLoading();
-          // developer.log("HomeLoading");
-         try{
-           var loading = await productRepos.fetchProduct();
-           developer.log("HomeSuccess");
-           yield HomeSuccess(listProduct: loading);
-         } on Exception catch(error){
-           developer.log("HomeFailure");
-           yield HomeFailure(error: error.toString());
-         }
-        }
-      } on Exception catch (error) {
-        yield HomeFailure(error: error.toString());
+    try {
+      if (currentState is HomeInit) {
+        yield HomeLoading();
+      } else if (currentState is HomeLoading) {
+        yield HomeSuccess();
       }
+      if (event is HomeRequest) {
+//        yield HomeLoading();
+//        developer.log("HomeLoading");
+//        var loading = await productRepos.fetchProduct1();
+//        print("${loading.length} dwdwdwdw");
+//
+//        yield HomeSuccess(listProduct: loading);
+
+        developer.log("HomeSuccess");
+      }
+    } on Exception catch (error) {
+      yield HomeFailure(error: error.toString());
     }
   }
 }

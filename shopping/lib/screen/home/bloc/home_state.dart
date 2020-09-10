@@ -1,20 +1,16 @@
 import 'package:shopping/model/product/product.dart';
 import 'package:equatable/equatable.dart';
+
 abstract class HomeState extends Equatable {
   const HomeState();
-}
-
-class HomeInit extends HomeState  {
   @override
   // TODO: implement props
   List<Object> get props => [];
 }
 
-class HomeLoading extends HomeState {
-  @override
-  // TODO: implement props
-  List<Object> get props => [];
-}
+class HomeInit extends HomeState {}
+
+class HomeLoading extends HomeState {}
 
 class HomeSuccess extends HomeState {
   final List<Product> listProduct;
@@ -35,7 +31,7 @@ class HomeFailure extends HomeState {
     return 'HomeFailure: {$error}';
   }
 
-  @override
-  // TODO: implement props
-  List<Object> get props => [error];
+//  @override
+//  // TODO: implement props
+//  List<Object> get props => [error];
 }

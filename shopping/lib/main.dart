@@ -1,10 +1,15 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:shopping/model/product/product_repos.dart';
+import 'package:shopping/screen/category/bloc/grid_category_bloc.dart';
+import 'package:shopping/screen/category/grid_category.dart';
 import 'package:shopping/screen/home/bloc/home_bloc.dart';
 import 'package:shopping/screen/home/home_screen.dart';
 import 'package:shopping/screen/routes.dart';
 import 'dart:developer';
+
+import 'screen/category/category_screen.dart';
+
 void main() {
   runApp(MyApp());
 }
@@ -21,10 +26,9 @@ class MyApp extends StatelessWidget {
         visualDensity: VisualDensity.adaptivePlatformDensity,
       ),
       home: BlocProvider(
-        create: (context) => HomeBloc(productRepos: ProductRepositoryImpl()),
-        child: HomeScreen(),
-         ),
-
+        create: (context) => GridCategoryBloc(),
+        child: CategoryScreen(),
+      ),
       initialRoute: Routes.initial,
       onGenerateRoute: routes.routePage,
     );
