@@ -33,11 +33,23 @@ class _GridCategoryState extends State<GridCategory> {
     gridCategoryBloc.add(GridCategoryRequest());
     return _refreshCompleter.future;
   }
+  void _handleState(BuildContext context, GridCategoryState state) {
+    if(state is GridCategoryLoading){
+      //
+    }else if (state is GridCategorySuccess)
+      {
+        //
+      }
+    else if (state is GridCategoryFailure){
+      //
+    }
+  }
   @override
   Widget build(BuildContext context) {
     return RefreshIndicator(
       onRefresh:  _onRefresh,
-      child: BlocBuilder<GridCategoryBloc, GridCategoryState>(
+      child: BlocConsumer<GridCategoryBloc, GridCategoryState>(
+        listener: _handleState,
         builder: (context, state) {
           if (state is GridCategorySuccess) {
             return GridView.builder(
@@ -72,6 +84,6 @@ class _GridCategoryState extends State<GridCategory> {
     );
   }
 
- 
+
 }
 
