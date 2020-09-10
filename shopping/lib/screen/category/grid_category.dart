@@ -1,7 +1,11 @@
+import 'dart:async';
+
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:shopping/screen/category/bloc/grid_category_bloc.dart';
+import 'package:shopping/screen/category/bloc/grid_category_event.dart';
 import 'package:shopping/screen/category/bloc/grid_category_state.dart';
+import 'package:shopping/screen/home/bloc/home_event.dart';
 
 class GridCategory extends StatefulWidget {
 
@@ -11,15 +15,28 @@ class GridCategory extends StatefulWidget {
 
 class _GridCategoryState extends State<GridCategory> {
   GridCategoryBloc gridCategoryBloc;
+  Completer<void> _refreshCompleter= Completer();
+  ScrollController _scrollController;
+
+
   @override
   void initState() {
     // TODO: implement initState
     super.initState();
+    _scrollController = ScrollController();
+    gridCategoryBloc = BlocProvider.of<GridCategoryBloc>(context);
+    gridCategoryBloc.add(GridCategoryRequest());
+  }
+
+  Future<void>_onRefresh() async {
+    gridCategoryBloc.add(GridCategoryReload());
+    gridCategoryBloc.add(GridCategoryRequest());
+    return _refreshCompleter.future;
   }
   @override
   Widget build(BuildContext context) {
     return RefreshIndicator(
-      onRefresh:  Future<void>_onRefresh(),
+      onRefresh:  _onRefresh,
       child: BlocBuilder<GridCategoryBloc, GridCategoryState>(
         builder: (context, state) {
           if (state is GridCategorySuccess) {
@@ -58,10 +75,3 @@ class _GridCategoryState extends State<GridCategory> {
  
 }
 
- Future<void>_onRefresh() async {
-   _reloadCategoryList();
-}
-
-void _reloadCategoryList() {
-
-}

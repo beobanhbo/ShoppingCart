@@ -16,8 +16,8 @@ class _CategoryScreenState extends State<CategoryScreen> {
   void initState() {
     // TODO: implement initState
     super.initState();
-    gridCategoryBloc = BlocProvider.of<GridCategoryBloc>(context);
-    gridCategoryBloc.add(GridCategoryRequest());
+    // gridCategoryBloc = BlocProvider.of<GridCategoryBloc>(context);
+    // gridCategoryBloc.add(GridCategoryRequest());
   }
 
   @override
