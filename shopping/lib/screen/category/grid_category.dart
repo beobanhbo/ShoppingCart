@@ -5,19 +5,20 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:shopping/screen/category/bloc/grid_category_bloc.dart';
 import 'package:shopping/screen/category/bloc/grid_category_event.dart';
 import 'package:shopping/screen/category/bloc/grid_category_state.dart';
-import 'package:shopping/screen/home/bloc/home_event.dart';
+
+import '../routes.dart';
 
 class GridCategory extends StatefulWidget {
-
   @override
   _GridCategoryState createState() => _GridCategoryState();
 }
 
 class _GridCategoryState extends State<GridCategory> {
-  GridCategoryBloc gridCategoryBloc;
-  Completer<void> _refreshCompleter= Completer();
-  ScrollController _scrollController;
+  bool _isRefreshList = true;
 
+  GridCategoryBloc gridCategoryBloc;
+  Completer<void> _refreshCompleter = Completer();
+  ScrollController _scrollController;
 
   @override
   void initState() {
@@ -28,26 +29,33 @@ class _GridCategoryState extends State<GridCategory> {
     gridCategoryBloc.add(GridCategoryRequest());
   }
 
-  Future<void>_onRefresh() async {
+  Future<void> _onRefresh() async {
     gridCategoryBloc.add(GridCategoryReload());
     gridCategoryBloc.add(GridCategoryRequest());
     return _refreshCompleter.future;
   }
+
   void _handleState(BuildContext context, GridCategoryState state) {
-    if(state is GridCategoryLoading){
+    if (state is GridCategoryLoading) {
       //
-    }else if (state is GridCategorySuccess)
-      {
-        //
-      }
-    else if (state is GridCategoryFailure){
+    } else if (state is GridCategorySuccess) {
+      _hideRefreshIndicator();
+      //
+    } else if (state is GridCategoryFailure) {
       //
     }
   }
+
+  void _hideRefreshIndicator() {
+    _isRefreshList = false;
+    _refreshCompleter?.complete();
+    _refreshCompleter = Completer();
+  }
+
   @override
   Widget build(BuildContext context) {
     return RefreshIndicator(
-      onRefresh:  _onRefresh,
+      onRefresh: _onRefresh,
       child: BlocConsumer<GridCategoryBloc, GridCategoryState>(
         listener: _handleState,
         builder: (context, state) {
@@ -59,11 +67,14 @@ class _GridCategoryState extends State<GridCategory> {
                   crossAxisSpacing: 0.0,
                 ),
                 itemBuilder: (context, index) {
-                  return Card(
-                    child: Container(
-                      color: Colors.grey,
-                      child: Image.network(
-                          '${state.list[index].image}'.toString()),
+                  return GestureDetector(
+                    onTap: _ontapItem(state.list[index].id),
+                    child: Card(
+                      child: Container(
+                        color: Colors.grey,
+                        child: Image.network(
+                            '${state.list[index].image}'.toString()),
+                      ),
                     ),
                   );
                 });
@@ -84,6 +95,8 @@ class _GridCategoryState extends State<GridCategory> {
     );
   }
 
-
+  _ontapItem(int id) async {
+    await Navigator.of(context).pushNamed(Routes.Detail);
+//    print("dwdw");
+  }
 }
-

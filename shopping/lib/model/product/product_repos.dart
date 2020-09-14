@@ -84,4 +84,17 @@ class ProductRepos {
 
     return listProduct;
   }
+
+  Future<Product> getProductItem() async {
+    var response = await http.get('https://fakestoreapi.com/products/1');
+    if (response.statusCode == 200) {
+      Map productMap = jsonDecode(response.body);
+//      var product=Product.fromJSON(json)
+//      return product;
+    } else {
+      throw Exception("Failed to load Product!");
+    }
+  }
+
+//  Product parseProduct(String responseBody) {final parsed=jsonDecode(responseBody).}
 }

@@ -34,6 +34,10 @@ dev_dependencies:
     sdk: flutter
   http:
   equatable: ^0.6.1
+  fit_kit: ^1.1.2
+  healthhub: ^1.0.5
+  device_apps: ^1.2.0
+  store_redirect: ^1.0.2
 # For information on the generic Dart part of this file, see the
 # following page: https://dart.dev/tools/pub/pubspec
 
