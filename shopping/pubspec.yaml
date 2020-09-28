@@ -38,6 +38,9 @@ dev_dependencies:
   healthhub: ^1.0.5
   device_apps: ^1.2.0
   store_redirect: ^1.0.2
+  oauth2: ^1.6.1
+  oauth2_client: ^1.5.1
+  google_sign_in: ^4.5.4
 # For information on the generic Dart part of this file, see the
 # following page: https://dart.dev/tools/pub/pubspec
 
